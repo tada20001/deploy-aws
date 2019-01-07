@@ -1,0 +1,11 @@
+django==2.1.1
+django-embed-video
+django-bootstrap4
+pillow
+pilkit
+django-summernote
+django-imagekit
+django-el-pagination
+django-crispy-forms
+django-admin-honeypot
+django-widget-tweaks
