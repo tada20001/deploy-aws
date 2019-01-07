@@ -10,10 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
+from os.path import abspath, dirname, join
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_summernote',
-    'debug_toolbar',
     'django_extensions',
     'bootstrap4',
     'embed_video',
@@ -55,11 +54,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'accounts.middleware.KickMiddleware', # 다른 아이디로 로그인할 때 중복 에러 막기
-    
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -75,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'gallery_dev', 'templates'),
+            join(BASE_DIR, 'gallery_dev', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -98,7 +96,7 @@ WSGI_APPLICATION = 'gallery_dev.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -136,7 +134,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-INTERNAL_IPS = ['127.0.0.1']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -144,11 +141,11 @@ INTERNAL_IPS = ['127.0.0.1']
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'gallery_dev', 'static'),
+    join(BASE_DIR, 'gallery_dev', 'static'),
     ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -1,0 +1,1 @@
+export DJANGO_SETTING_MODULE=gallery_dev.settings.prod

@@ -9,3 +9,4 @@ django-el-pagination
 django-crispy-forms
 django-admin-honeypot
 django-widget-tweaks
+django_extensions
