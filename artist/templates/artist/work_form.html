@@ -1,0 +1,27 @@
+{% extends 'artist/layout.html' %}
+{% load crispy_forms_tags %}
+{% block title %}work - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
+  <div class="row">
+    <div class="col-8">
+      <h1>작품 올리기</h1>
+
+        <form  method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            {% for error in form.non_fields_errors  %}
+            <div class="alert alert-danger">
+              {{ error }}
+            </div>
+            {% endfor %}
+
+            {{ form|crispy }}
+            {{ formset|crispy }}
+            <button class="btn btn-light btn-lg" type="submit" id="form-btn">CREATE</button>
+        </form>
+        </div>
+  </div>
+</div>
+{% endblock %}

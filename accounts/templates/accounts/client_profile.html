@@ -1,0 +1,62 @@
+{% extends "accounts/layout.html" %}
+{% load static %}
+
+{% block title %}
+  {% if user.profile.name %}
+    {{ user.profile.name }}'s page - {{ block.super }}
+  {% else %}
+    {{ user.username }}'s page - {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 19rem">
+  <div class="row">
+    <div class="col-8">
+<h1 style="color: rgb(0,0,0);font-size: 24px;margin-bottom: 2rem">
+
+  {% if user.profile.name %}
+    {{ user.profile.name }}'s page
+  {% else %}
+    {{ user.username }}'s page
+  {% endif %}
+</h1>
+
+  <p>성명 : {{ user.profile.name|default:"&dash;" }}</p>
+
+  {% if user.is_client %}
+      {% for interest in user.client.interests.all  %}
+        <p>관심분야 : {{ interest }}</p>
+      {% endfor %}
+  {% else %}
+  <a href="{% url 'json' %}">json inform </a>
+  {% endif %}
+
+  <p>avatar :
+  {% if user.profile.avatar %}
+  <img src="{{ user.profile.avatar.url }}" style="max-width:10%;">
+   </p>
+  {% else %}
+  empty
+  {% endif %}
+
+
+
+  <section style="margin-top: 2rem;">
+    {% if user.is_client %}
+    <a href="{% url 'profile_edit_client' %}">
+      {% else %}
+    <a href="{% url 'profile_edit' %}">
+    {% endif %}
+      <button class="btn btn-light btn-lg" type="submit" id="form-btn">EDIT</button>
+  </a>
+    <a href="{% url 'password_change' %}" >비밀번호 변경</a>
+    <a href="{% url 'password_reset' %}">비밀번호 리셋</a>
+  </section>
+
+
+</div>
+</div>
+</div>
+{% endblock %}

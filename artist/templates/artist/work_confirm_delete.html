@@ -1,0 +1,23 @@
+{% extends "artist/layout.html" %}
+{% load static %}
+{% block title %}
+  Confirm - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem; margin-bottom: 25rem">
+    <div class="row">
+      <div class="col-6">
+  <h1>삭제 확인</h1>
+  <p>"{{ work.title }}" 작품을 정말 삭제하시겠습니까?</p>
+  <form method="post">
+    {% csrf_token %}
+    <a href="{{ work.get_absolute_url }}">아니오. 삭제하지 않겠습니다.</a>
+    <input type="submit" name="" value="예. 삭제하겠습니다." class="btn btn-danger">
+  </form>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

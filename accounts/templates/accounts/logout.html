@@ -1,0 +1,16 @@
+{% extends "accounts/layout.html" %}
+{% load static %}
+
+{% block title %}Logout - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
+  <div class="row">
+    <div class="col-6">
+    <p>로그아웃이 되었습니다.</p>
+  <a href="{% url 'login' %}" class="btn btn-primary">LOGIN</a>
+  </div>
+  </div>
+</div>
+
+{% endblock %}

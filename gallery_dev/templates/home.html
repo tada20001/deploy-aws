@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+{% block title %}
+  Home - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="parallax">
+  <div class="container d-flex justify-content-center align-items-center parallax-content">
+    <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center flex-column">
+      <h1 style="font-family: 'Noto Sans', sans-serif;font-size: 54px;font-weight: 100;">WE MAKE ART LIFE</h1>
+        <p data-aos="fade" style="font-family: 'Noto Sans', sans-serif;font-size: 16px;margin-top: 93px;">
+          나오란 “안에서 밖으로 나오다“라는 의미에서 유래된 순우리말로, 예술의 틀을 넘어서는 아트스타일을 제안하는 갤러리입니다. 여러분과 아티스트들의 작품이 서로 대화하듯이 작품의 의미와 즐거움을 만들어 가고자 합니다.
+        </p>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button class="btn btn-primary" type="button" style="display: none">Button</button>
+          </div>
+          <div class="col d-flex justify-content-start">
+            <button class="btn btn-warning" type="button" style="display:none">Button</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <video autoplay="" preload="auto" muted="" loop="" class="parallax-background">
+      <source src="http://www.naoarts.com/assets/02.mp4" type="video/mp4" wp-acf="[{'type':'url','name':'video','label':'Video','wrapper':{'width':25}},{'type':'text','name':'video_css','label':'Video CSS (eg. filters)','wrapper':{'width':25}}]" wp-attr="[{'target':'src','replace':'%1'},{'target':'parent_style','replace':'%2'}]">
+    </video>
+
+    <div class="parallax-placeholder" style="background-image: url(&quot;static/img/bg1.jpg&quot;);"></div>
+</div>
+
+<section style="background-color: #ffffff;padding: 74px;background-position: center;background-size: cover;background-repeat: no-repeat;/*height: 710px;*/color: rgb(255,255,255);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <h1 style="color: rgb(0,0,0);font-size: 24px;">Test</h1>
+      </div>
+      <div class="col-lg-8">
+        <iframe width="100%" height="315" allowfullscreen="" frameborder="0" src="https://player.vimeo.com/video/299143829"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background-color: rgba(255,255,255,0.3);padding: 74px;background-position: top;background-size: cover;background-repeat: no-repeat;height: 100vh;background-image: url(&quot;static/img/03.png&quot;);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h1 style="color: rgb(255,255,255);font-family: 'Noto Sans', sans-serif;font-weight: 800;">TOKYO</h1>
+        <h1 style="color: rgb(255,255,255);font-size: 42px;">BAIK, MINJUNE</h1>
+        <h1 style="color: rgb(255,255,255);font-size: 24px;font-weight: 100;">Little Pleasure</h1>
+        <p style="color: rgb(255,255,255);">2018. 11.10~19</p>
+      </div>
+
+      <div class="col-lg-6"></div>
+    </div>
+  </div>
+</section>
+
+<section id="exhibition" style="background-color: #000000;padding: 50px;background-position: center;background-size: cover;background-repeat: no-repeat;/*height: 100vh;*/padding-bottom: 102px;background-image: url(&quot;static/img/BLOCK_03.png&quot;);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6" style="background-color: #ffffff;padding: 40px;margin-top: 0;">
+        <h1 class="title" style="color: rgb(0,0,0);margin-top: 0;margin-right: 11px;margin-left: 0px;">OPEN GALLERY</h1>
+        <p>Media Artist</p>
+        <h1>MAXDA</h1>
+        <button class="btn btn-outline-dark btn-lg" type="button">Button</button>
+      </div>
+      <div class="col-lg-6" style="/*margin-top: 0;*/">
+        <img class="img-fluid poster" src="{% static 'img/poster3.jpg' %}" width="100%">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container" id="info-container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center text-info" style="color: rgb(0,0,0) !important;">Contact Us</h2>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6" id="contact-box">
+        <p id="contact-text" style="font-size: 30px;"><strong>FIND ARTISTS</strong></p>
+        <p>증강현실, 가상현실 기술을 활용한 다양한 미디어 매체를 함께 기획/개발 전시할 작가님들을 모십니다.&nbsp;</p>
+
+        <div class="info-box">
+          <i class="fa fa-map-marker my-info-icons"></i>
+          <span class="text-uppercase text-info">Address: </span>
+          <span>서울 마포구 연남동 240-16&nbsp;</span>
+        </div>
+
+        <div class="info-box">
+          <i class="fa fa-envelope my-info-icons"></i>
+          <span class="text-uppercase text-info">Email: </span>
+          <span>info@9blocks.kr</span>
+        </div>
+
+        <div class="info-box">
+          <i class="fa fa-phone-square my-info-icons"></i>
+          <span class="text-uppercase text-info">Phone: </span>
+          <span>+82.70.8658.1184</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-6 site-form">
+        <form id="my-form">
+          <div class="form-group">
+            <label class="sr-only" for="firstname">First Name</label>
+            <input class="form-control" type="text" name="firstname" placeholder="First Name" autofocus="" id="firstname">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="lastname">Last Name</label>
+            <input class="form-control" type="text" name="lastname" placeholder="Last Name" id="lastname">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="phonenumber">Phone Number</label>
+            <input class="form-control" type="tel" name="phonenumber" required="" placeholder="Phone" id="phonenumber">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="email">Email Address</label>
+            <input class="form-control" type="text" name="email" required="" placeholder="Email" id="email">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="messages">Last Name</label>
+            <textarea class="form-control" rows="8" name="messages" required="" placeholder="Message"></textarea>
+          </div>
+          <button class="btn btn-light btn-lg" type="submit" id="form-btn">SEND </button>
+        </form>
+      </div>
+
+      <div class="clearfix"></div>
+  </div>
+</div>
+</section>
+
+<div class="map-clean" style="display:none;">
+  <div class="container">
+    <div class="intro">
+      <h2 class="text-center">Location </h2>
+      <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae. </p>
+    </div>
+  </div>
+  <iframe allowfullscreen="" frameborder="0" width="100%" height="450" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyABwTa8snmShPgYUiNvTY_wBZvb8-iic2U&amp;q=%EB%82%98%EC%98%A4+%EA%B0%A4%EB%9F%AC%EB%A6%AC&amp;zoom=15" style="background-color: #060000;"></iframe>
+</div>
+
+
+{% endblock %}

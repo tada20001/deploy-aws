@@ -1,0 +1,58 @@
+{% extends "artist/layout.html" %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block title %}
+  {{ work.title }}-{{ block.super }}
+{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
+    <div class="row">
+      <div class="col-10">
+  <h1>{{ work.title }}</h1>
+  <p>Artist: <a href="{% url 'ArtandArtists:artist_detail' artist_id=work.artist.user_id %}">{{ work.artist.user.profile.name }}</a>
+    Category: {% for category in work.category.all  %}
+    {% if forloop.first %}{% else %}{% if forloop.last %},{% endif %}{% endif %}
+      <a href="{% url 'ArtandArtists:works_by_category' category.name %}"> {{ category.name }} </a>
+    {% endfor %}
+      </p>    <br>
+
+      {% if work.video %}
+      <p>{% video work.video 'medium' %}</p>
+      {% endif %}
+
+  <p>{{ work.description|linebreaks }}</p>
+  {% if work.image1 or work.image2 or work.image3 or work.image4 or work.imgae5 %}
+      {% if work.image1 %}<p><img src="{{ work.image1.url }}" style='max-width: 100%;' alt="Image Not Found"></p>{% endif %}
+      {% if work.image2 %}<p><img src="{{ work.image2.url }}" style='max-width: 100%;' alt="Image Not Found"></p>{% endif %}
+      {% if work.image3 %}<p><img src="{{ work.image3.url }}" style='max-width: 100%;' alt="Image Not Found"></p>{% endif %}
+      {% if work.image4 %}<p><img src="{{ work.image4.url }}" style='max-width: 100%;' alt="Image Not Found"></p>{% endif %}
+      {% if work.image5 %}<p><img src="{{ work.image5.url }}" style='max-width: 100%;' alt="Image Not Found"></p>{% endif %}
+  {% else %}
+  <p>No images</p>
+  {% endif %}
+
+  <hr>
+  <small>게시일 : {{ work.created_at }}</small><br>
+  <small>수정일 : {{ work.updated_at }}</small>
+
+  <hr>
+  <form action="{% url 'ArtandArtists:like_work' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" name="work_id" value="{{ work.id }}" class="btn btn-info btn-sm">Like</button>
+  </form>
+  {{ total_likes }} like{{ total_likes|pluralize }}
+
+  <hr>
+  <a href="{% url 'ArtandArtists:work_list' %}" >Art and Artists</a>
+
+{% if request.user == work.artist.user %}
+<a href="{% url 'ArtandArtists:work_edit' work.id %}" class="btn btn-info">수정</a>
+<a href="{% url 'ArtandArtists:work_delete' work.pk %}" class="btn btn-danger">삭제</a>
+
+
+{% endif %}
+</div>
+</div>
+</div>
+{% endblock %}

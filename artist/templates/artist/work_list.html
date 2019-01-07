@@ -1,0 +1,122 @@
+{% extends "artist/layout.html" %}
+{% load static %}
+{% load imagekit %}
+{% block title %}
+  Art and Artists - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+
+<!-- Recent Works -->
+    <h1>Recent Works</h1>
+    <ul>
+      {% for work in recent_works %}
+      <li>{{ work.created_at|date:'Y-m-d' }}&nbsp;&nbsp;&nbsp;
+        <a href="{{ work.get_absolute_url }}">
+        {% if work.image1 %}
+          {% thumbnail "100x100" work.image1 -- style="" onclick="" class="" %}</a><small>{{ work.title|truncatechars:20 }}</small>
+        {% elif work.image2 %}
+        {% thumbnail "100x100" work.image2 -- style="" onclick="" class="" %}</a><small>{{ work.title|truncatechars:20 }}</small>
+        {% elif work.image3 %}
+        {% thumbnail "100x100" work.image3 -- style="" onclick="" class="" %}</a><small>{{ work.title|truncatechars:20 }}</small>
+        {% elif work.image4 %}
+        {% thumbnail "100x100" work.image4 -- style="" onclick="" class="" %}</a><small>{{ work.title|truncatechars:20 }}</small>
+        {% elif work.image5 %}
+        {% thumbnail "100x100" work.image5 -- style="" onclick="" class="" %}</a><small>{{ work.title|truncatechars:20 }}</small>
+        {% else %}
+        {{ work.title|truncatechars:50 }}</a>
+        {% endif %}
+      <small>
+          by <a href="{% url 'ArtandArtists:artist_detail' artist_id=work.artist.user_id %}">{{ work.artist.user.profile.name }}</a></small>
+
+          {% for category in work.category.all  %}
+            <a href="{% url 'ArtandArtists:works_by_category' category=category.name %}">
+              {% if forloop.first %} {% else %}{% if forloop.last %},{% endif %}{% endif %}
+              <small>{{ category.name }}</small></a>
+          {% endfor %}
+      {% endfor %}
+    </li>
+    </ul>
+
+  <!-- Search -->
+    <form method="get" autocomplete="on">
+        제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+      <input type="text" name="search" value="{{ title }}">
+      <input value="Search" type="submit">
+    </form>
+
+    <form  method="get">
+        아티스트 :
+      <input type="text" name="artist_name" value="{{ artist_name }}">
+      <input type="submit" value="Search">
+    </form>
+
+      <form  method="get">
+      카테고리 :
+        <select name="category_name" size="3" id='category_name' >
+          {% for category in categories %}
+          <option value="{{ category }}" selected='selected'>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="검색">
+      </form>
+
+      <form  method="get">
+          Tag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="tag" value="{{ tag }}">
+          <input type="submit" value="검색">
+      </form>
+      <hr>
+
+
+<!-- Work List -->
+  <small class="float-right">총 {{ count }}개의 작품이 등록되어 있습니다.</small>
+  <br>
+
+    {% if works %}
+    <ul>
+      {% for work in works %}
+      <li>{{ work.created_at|date:'Y-m-d' }}&nbsp;&nbsp;&nbsp;
+        <a href="{{ work.get_absolute_url }}">
+          {% if work.image1 or work.image2 or work.image3 or work.image4 or work.image5 %}
+            <a href="{% url 'ArtandArtists:work_detail' work.id %}">{% thumbnail "50x50" work.image1 -- style="" onclick="" class="" %}</a>
+            {% if work.image2 %}
+            {% thumbnail "50x50" work.image2 -- style="" onclick="" class="" %}
+            {% endif %}
+            {% if work.image3 %}
+            {% thumbnail "50x50" work.image3 -- style="" onclick="" class="" %}
+            {% endif %}
+            {% if work.image4 %}
+            {% thumbnail "50x50" work.image4 -- style="" onclick="" class="" %}
+            {% endif %}
+            {% if work.image5 %}
+            {% thumbnail "50x50" work.image5 -- style="" onclick="" class="" %}
+            {% endif %}
+          <small>{{ work.title|truncatechars:20 }}</small>
+          {% else %}
+          {{ work.title|truncatechars:50 }}</a>
+          {% endif %}
+           <small>by <a href="{% url 'ArtandArtists:artist_detail' artist_id=work.artist.user_id %}">{{ work.artist.user.profile.name }}</a>
+          {% for category in work.category.all  %}
+          {% if forloop.first %} {% else %}{% if forloop.last %},{% endif %}{% endif %}
+            <a href="{% url 'ArtandArtists:works_by_category' category=category.name %}">
+              {{ category.name }}</a>
+          {% endfor %}</small>
+
+      {% endfor %}
+    </ul>
+    {% else %}
+    게시된 작품이 없습니다.
+    {% endif %}
+
+<!-- Pagination -->
+    {% include 'paginator.html' with page=works %}
+
+    </div>
+   </div>
+  </div>
+
+{% endblock %}

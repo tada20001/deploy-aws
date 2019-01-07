@@ -1,0 +1,41 @@
+{% extends "artist/layout.html" %}
+{% load static %}
+{% load imagekit %}
+
+{% block title %}
+  {{ category.name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem; margin-bottom: 8rem">
+    <div class="row">
+      <div class="col-8">
+  <h1>{{ category.name }}</h1>
+  <p>카테고리 {{ category.name }} 페이지입니다.</p>
+  <hr>
+  <small class="float-right">총 {{ count }}개의 작품이 등록되어 있습니다.</small><br>
+  <ul>
+    {% for work in works %}
+    <li>{{ work.updated_at|date:'Y-m-d' }}&nbsp;&nbsp;&nbsp;
+      <a href="{% url 'ArtandArtists:work_detail' work.id %}">
+      {% if work.images_set.all %}
+      {% for work in work.images_set.all  %}
+        {% thumbnail "50x50" work.image -- style="" onclick="" class="" %}</a>
+      {% endfor %}
+      {% endif %}
+      <small>{{ work.title|truncatechars:30 }} by <a href="{% url 'ArtandArtists:artist_detail' artist_id=work.artist.user_id %}">{{ work.artist.user.profile.name }}</a>
+        {% for category in work.category.all  %}
+          <a href="{% url 'ArtandArtists:works_by_category' category=category.name %}"> #{{ category.name }}</a>
+          {% endfor %}
+      </small>
+    {% endfor %}
+  </ul>
+
+  <hr>
+<a href="{% url 'ArtandArtists:work_list' %}">Art and Artists</a>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

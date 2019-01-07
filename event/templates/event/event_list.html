@@ -1,0 +1,12 @@
+<h1>Exhibitions and Events</h1>
+<form method="get">
+    제목&nbsp;&nbsp;: <input type="text" name="title" value="{{ title }}">
+    <input type="submit" value="검색">
+</form>
+{% if event_list %}
+<ul>
+  {% for event in event_list %}
+    <li>{{ event.created_at|date:'Y-m-d' }}&nbsp;&nbsp;&nbsp;<a href="{% url 'event:event_detail' event.pk %}">{{ event.title|truncatechars:50 }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,83 @@
+{% extends "accounts/layout.html" %}
+{% load static %}
+
+{% block title %}
+    {{ user.profile.name }}'s page - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
+  <div class="row">
+    <div class="col-8">
+<h1 style="color: rgb(0,0,0);font-size: 24px;margin-bottom: 2rem">
+    {{ user.profile.name|default:"&dash;"  }}'s page
+</h1>
+
+  <p>이름 : {{ user.profile.name|default:"&dash;" }}</p>
+  <p>활동지 : {{ user.location|default:"&dash;" }}</p>
+  <p>소개 : {{ user.profile.bio|default:"&dash;"}} </p>
+  <p>교육 : {{ user.profile.education|default:"&dash;" }}</p>
+  <p>BirthYear : {{ user.profile.birthYear|default:"&dash;" }}</p>
+  <p>web : {{ user.profile.website_url }}</p>
+  <p>email : {{ user.username }}</p>
+  <p>주요 분야 :
+  {% for field in user.artist.main_fields.all %}
+    {% if forloop.first %}{% else %}{% if forloop.last %},{% endif %}{% endif %}
+    {{ field }}
+  {% endfor %}
+</p>
+  <p>avatar :
+  {% if user.profile.avatar %}
+  <img src="{{ user.profile.avatar.url }}" style="max-width:10%;">
+   </p>
+  {% else %}
+  empty
+  {% endif %}
+
+<section style="margin-top: 2rem;">
+  <p><strong>작가 약력</strong></p>
+  <p>개인전</p>
+    <small>{{ user.profile.singleEvent|safe|default:"&dash;" }}</small>
+  <p>그룹전</p>
+    <p><small>{{ user.profile.GroupEvent|safe|default:"&dash;" }}</small></p>
+</section>
+
+
+
+  <section style="margin-top: 2rem;">
+  {% if user.is_artist %}
+  <p><strong>MyWorks</strong></p>
+
+  {% if last_work %}
+  <small style="float:right;">작품을 마지막으로 게시한 지 {{ last_work.created_at|timesince }}이 되었습니다. </small>
+  <br>
+
+  {% endif %}
+
+    {% if works %}
+    <ul>
+      {% for work in works %}
+        <li><a href="{{ work.get_absolute_url }}">{{ work.title|truncatechars:50 }}</a> <small>at {{ work.created_at }}</small></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>아직 게시된 작품이 없습니다.</p>
+    {% endif %}
+    <p><a href="{% url 'ArtandArtists:work_create' %}">새로운 작품 올리기</a></p>
+  {% endif %}
+  </section>
+
+  <section style="margin-top: 2rem;">
+    <a href="{% url 'profile_edit_artist' %}">
+      <button class="btn btn-light btn-lg" type="submit" id="form-btn">EDIT</button>
+  </a>
+    <a href="{% url 'password_change' %}" >비밀번호 변경</a>
+    <a href="{% url 'password_reset' %}">비밀번호 리셋</a>
+  </section>
+
+
+</div>
+</div>
+</div>
+{% endblock %}

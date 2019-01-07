@@ -1,0 +1,65 @@
+{% extends "artist/layout.html" %}
+{% load static %}
+
+{% block title %}
+  {{ artist.user.profile.name }}-{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem; margin-bottom: 2rem">
+  <div class="row">
+    <div class="col-8">
+<h1 style="color: rgb(0,0,0);font-size: 24px;margin-bottom: 2rem">
+    {{ artist.user.profile.name|default:"&dash;"  }}'s page
+</h1>
+
+  <p>이름 : {{ artist.user.profile.name|default:"&dash;" }}</p>
+  <p>활동지 : {{ artist.user.location|default:"&dash;" }}</p>
+  <p>소개 : {{ artist.user.profile.bio|default:"&dash;"}} </p>
+  <p>교육 : {{ artist.user.profile.education|default:"&dash;" }}</p>
+  <p>BirthYear : {{ artist.user.profile.birthYear|default:"&dash;" }}</p>
+  <p>web : {{ artist.user.profile.website_url }}</p>
+  <p>email : {{ artist.user.username }}</p>
+  <p>주요 분야 :
+  {% for field in artist.user.artist.main_fields.all %}
+  {% if forloop.first %}{% else %}{% if forloop.last %},{% endif %}{% endif %}
+    {{ field }}
+  {% endfor %}
+  </p>
+  <p>avatar :
+  {% if artist.user.profile.avatar %}
+  <img src="{{ artist.user.profile.avatar.url }}" style="max-width:10%;">
+   </p>
+  {% else %}
+  empty
+  {% endif %}
+
+<section style="margin-top: 2rem;">
+  <p><strong>작가 약력</strong></p>
+  <p>개인전</p>
+    <small>{{ artist.user.profile.singleEvent|safe|default:"&dash;" }}</small>
+  <p>그룹전</p>
+    <p><small>{{ artist.user.profile.GroupEvent|safe|default:"&dash;" }}</small></p>
+</section>
+
+
+
+  <section style="margin-top: 2rem;">
+  <p><strong>Works</strong></p>
+    {% if works %}
+    <ul>
+      {% for work in works %}
+        <li><a href="{{ work.get_absolute_url }}">{{ work.title|truncatechars:50 }}</a> <small>at {{ work.created_at }}</small></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>아직 게시된 작품이 없습니다.</p>
+    {% endif %}
+
+  </section>
+
+
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "event/layout.html" %}
+{% load static %}
+
+{% block title %}
+  Contact - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<section id="contact">
+  <div class="container" id="info-container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center text-info" style="color: rgb(0,0,0) !important;">Contact Us</h2>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6" id="contact-box">
+        <p id="contact-text" style="font-size: 30px;"><strong>FIND ARTISTS</strong></p>
+        <p>증강현실, 가상현실 기술을 활용한 다양한 미디어 매체를 함께 기획/개발 전시할 작가님들을 모십니다.&nbsp;</p>
+
+        <div class="info-box">
+          <i class="fa fa-map-marker my-info-icons"></i>
+          <span class="text-uppercase text-info">Address: </span>
+          <span>서울 마포구 연남동 240-16&nbsp;</span>
+        </div>
+
+        <div class="info-box">
+          <i class="fa fa-envelope my-info-icons"></i>
+          <span class="text-uppercase text-info">Email: </span>
+          <span>info@9blocks.kr</span>
+        </div>
+
+        <div class="info-box">
+          <i class="fa fa-phone-square my-info-icons"></i>
+          <span class="text-uppercase text-info">Phone: </span>
+          <span>+82.70.8658.1184</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-6 site-form">
+      <form id="my-form" method="post" autocomplete="off">
+        {% csrf_token %}
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field }}
+        {% endfor %}
+
+        {% for field in form.visible_fields  %}
+          <div class="form-group">
+            <label class="sr-only" for='{{ field.label_tag }}'>{{ field.label_tag }}</label>
+            {% if field.errors %}
+            <ul>{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+            {{ field }}
+          {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-light btn-lg" type="submit" id="form-btn">SEND </button>
+      </form>
+    </div>
+
+      <div class="clearfix"></div>
+  </div>
+</div>
+</section>
+{% endblock %}

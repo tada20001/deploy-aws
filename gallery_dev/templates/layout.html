@@ -1,0 +1,144 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}NAO{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="VR, AR, media art, art, digital art, 미디어아트, 디지털 아트, 아트, 갤러리">
+    <link rel="icon" href="#" >
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Antic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR">
+    <link rel="stylesheet" href="{% static 'css/Dark-footer-with-social-media-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ebs-contact-form-1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ebs-contact-form.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="{% static 'css/Map-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/simple-footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Video-Parallax-Background-v2.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+
+  <body>
+    <nav class="navbar navbar-light navbar-expand-md sticky-top" style="background-color: #ffffff;">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'img/Asset%201.svg' %}" style="width: 90px;margin: 16px;">
+          </a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'ArtandArtists:about_us' %}">About NAO</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'ArtandArtists:work_list' %}">Arts and Artists</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'event:events' %}">Exhibitions and Events</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'event:contact' %}">Contact</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav ml-auto">
+              {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id='navbarDropdown' role="button" data-toggle='dropdown' aria-haspopup=true>
+                    {% if request.user.profile.avatar %}
+                    <img src="{{ request.user.profile.avatar.url }}" alt="" class="navbar-img">
+                    {% else %}
+                    <img src="/media/profiles/default-avatar.png" alt="" class="navbar-img">
+                    {% endif %}
+                    <span>Hi {{ request.user.profile.name }}</span>
+                    </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'profile' %}">My Page</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                  </div>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}" >Login</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'signup' %}?next={{ request.path }}">Signup</a></li>
+              {% endif %}
+              </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+
+    <footer id="footerpad">
+      <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-8 mx-auto">
+              <ul class="list-inline text-center">
+                <li class="list-inline-item">
+                  <a href="#">
+                  <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x" style="color:#000;"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                  </a>
+                </li>
+
+                <li class="list-inline-item" style="color:#eee;">
+                  <a href="#">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x" style="color:#000;"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x" style="color:#000;"></i>
+                      <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x" style="color:#000;"></i>
+                      <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <p class="copyright text-muted text-center" style="font-size:14px;  color:#eee;">
+                Copyright &copy; www.naoart.com
+              </p>
+            </div>
+          </div>
+        </div>
+        </footer>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bs-animation.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="{% static 'js/Video-Parallax-Background-v2.js' %}"></script>
+
+    {% block extra_body %}{% endblock %}
+</body>
+
+</html>

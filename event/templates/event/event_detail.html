@@ -1,0 +1,45 @@
+{% extends "event/layout.html" %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block title %}
+  Exhibitions and Events - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      {% if event %}
+      <h1>{{ event.title }}</h1>
+      <p><small>Category :
+        {% for category in event.category.all %}
+        {% if forloop.first %} {% else %}{% if forloop.last %},{% endif %}{% endif %}
+          {{ category.name }}
+          {% endfor %}
+        {% if event.start_date and event.end_date %}
+          &nbsp;&nbsp;전시일정 :
+          {{ event.start_date }}~{{ event.end_date }}
+          {% if event.end_date|timeuntil == "0분" %}
+            <small style="color:red;">종료!!</small>
+          {% else %}
+            <small style="color:red;">마지막 전시까지 {{ event.end_date|timeuntil }} 남았습니다.</small>
+          {% endif %}
+        {% endif %}
+        &nbsp;&nbsp;작성일 : {{ event.created_at|date }}</small></p>
+      <p>{{ event.description|safe|linebreaks }}</p>
+{% else %}
+아직 이벤트가 없습니다.
+{% endif %}
+    <br>
+    <hr>
+
+    {% include 'event/event_list.html' %}
+
+    {% include 'paginator.html' with page=event_list %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

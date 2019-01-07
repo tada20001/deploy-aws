@@ -1,0 +1,13 @@
+{% extends "event/layout.html" %}
+{% block content %}
+
+<h1>Send Email</h1>
+
+
+<form method="post">
+  {% csrf_token %}
+  <input type="email" name="email" placeholder="Enter and email id to start sending emails">
+  <button type="submit" name="button">Send Email Now!</button>
+</form>
+
+{% endblock %}

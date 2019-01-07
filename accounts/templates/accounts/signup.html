@@ -1,0 +1,21 @@
+{% extends "accounts/layout.html" %}
+{% load static %}
+
+{% block title %} signup {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem; margin-bottom: 23rem">
+  <div class="row">
+    <div class="col-8">
+  <h1>회원가입</h1>
+  <p>저희 멤버가 되어 주셔서 감사합니다.
+  아래의 두가지 계정 중 원하시는 것을 선택해 주세요.</p>
+
+  <a href="{% url 'artist_signup' %}" class="btn btn-student " role="button">아티스트</a>
+  <a href="{% url 'client_signup' %}" class="btn btn-teacher " role="button">일반회원</a>
+
+  </div>
+</div>
+</div>
+
+{% endblock %}

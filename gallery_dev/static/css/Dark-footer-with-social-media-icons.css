@@ -1,0 +1,41 @@
+#footerpad {
+  padding-top: 70px;
+  padding-bottom: 20px;
+  background-color: #000000;
+}
+
+a:focus, a:hover {
+  color: #0085A1;
+}
+
+.exhibition .h1, h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  #exhibition {
+    /*height: 1240px;*/
+  }
+}
+
+@media (min-width: 992px) {
+  #exhibition .col-lg-6 {
+    margin-top: 0px;
+  }
+}
+
+#exhibition .col-lg-6 {
+  margin-top: 0px;
+}
+
+.img-fluid.poster {
+  margin-top: 30px;
+}
+
+@media (min-width: 992px) {
+  .img-fluid.poster {
+    margin-top: 0px;
+  }
+}
+
